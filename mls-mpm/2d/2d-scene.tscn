@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0qunynltggx3"]
+
+[ext_resource type="Script" uid="uid://culi7mq056eb5" path="res://mls-mpm/2d/TestScript.cs" id="1_qkga2"]
+[ext_resource type="Texture2D" uid="uid://13pvc2qq48hy" path="res://icon.svg" id="2_nb532"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_qkga2")
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("2_nb532")

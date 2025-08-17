@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://cflomhes5b8st"]
+
+[ext_resource type="PackedScene" uid="uid://c0qunynltggx3" path="res://mls-mpm/2d/2d-scene.tscn" id="1_jkfoa"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jkfoa"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_cbcaq"]
+sky_material = SubResource("ProceduralSkyMaterial_jkfoa")
+
+[sub_resource type="Environment" id="Environment_dqt6a"]
+background_mode = 2
+sky = SubResource("Sky_cbcaq")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_jkfoa"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dqt6a")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.54351)
+current = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = SubResource("ViewportTexture_jkfoa")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+render_target_update_mode = 4
+
+[node name="Node2D" parent="Sprite3D/SubViewport" instance=ExtResource("1_jkfoa")]
+
+[node name="Camera2D" type="Camera2D" parent="Sprite3D/SubViewport"]

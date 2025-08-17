@@ -1,0 +1,13 @@
+{
+  "profiles": {
+	"MLS-MPM": {
+	  "commandName": "Project"
+	},
+	"Profile 1": {
+	  "commandName": "Executable",
+	  "executablePath": "C:\\Godot\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
+	  "workingDirectory": ".",
+	  "nativeDebugging": true
+	}
+  }
+}
