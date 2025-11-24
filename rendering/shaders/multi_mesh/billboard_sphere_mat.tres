@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ba1fteukmndvu"]
+
+[ext_resource type="Shader" uid="uid://1vnayndtyqaj" path="res://rendering/shaders/multi_mesh/billboard_sphere.gdshader" id="1_tk888"]
+
+[sub_resource type="Texture2DRD" id="Texture2DRD_8sbhd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_tk888")
+shader_parameter/sphere_radius = 0.5
+shader_parameter/sphere_color = Color(1, 1, 1, 1)
+shader_parameter/particle_pos_tex = SubResource("Texture2DRD_8sbhd")
+shader_parameter/particle_pos_tex_width = 0

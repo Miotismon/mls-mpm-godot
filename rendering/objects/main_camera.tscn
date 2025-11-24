@@ -1,0 +1,74 @@
+[gd_scene load_steps=14 format=3 uid="uid://8asyaabarqim"]
+
+[ext_resource type="Script" uid="uid://coj04oycg5jv0" path="res://rendering/objects/main_camera.gd" id="1_70qug"]
+[ext_resource type="Script" uid="uid://dryr7j04mf4dx" path="res://rendering/compositor_effects/screen_space_fluid_rendering.gd" id="2_4fv3s"]
+[ext_resource type="Script" uid="uid://g20dcusrttk3" path="res://rendering/compositor_effects/fluid_texture_pass.gd" id="3_b1d4n"]
+[ext_resource type="Shader" uid="uid://6p2hv6mw0ryu" path="res://rendering/shaders/screen_space_quad/screen_shader.gdshader" id="3_qo3oi"]
+[ext_resource type="Script" uid="uid://duktitv83caii" path="res://rendering/objects/attachable_sub_viewport.gd" id="4_5vkcf"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_4fv3s"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("2_4fv3s")
+blur_filter_size = 14.0
+metadata/_custom_type_script = "uid://dryr7j04mf4dx"
+
+[sub_resource type="Compositor" id="Compositor_b1d4n"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_4fv3s")])
+
+[sub_resource type="Environment" id="Environment_h2qaa"]
+background_mode = 1
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_linoe"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("3_b1d4n")
+metadata/_custom_type_script = "uid://g20dcusrttk3"
+
+[sub_resource type="Compositor" id="Compositor_4fv3s"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_linoe")])
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rteh7"]
+viewport_path = NodePath("FluidDepthViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b1yv3"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_qo3oi")
+shader_parameter/fluid_depth_buffer = SubResource("ViewportTexture_rteh7")
+
+[sub_resource type="QuadMesh" id="QuadMesh_7g8ml"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_b1yv3")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="MainCamera" type="Camera3D"]
+cull_mask = 1
+compositor = SubResource("Compositor_b1d4n")
+current = true
+script = ExtResource("1_70qug")
+
+[node name="FluidDepthCamera" type="Camera3D" parent="."]
+cull_mask = 2
+environment = SubResource("Environment_h2qaa")
+compositor = SubResource("Compositor_4fv3s")
+
+[node name="FluidDepthViewport" type="SubViewport" parent="." node_paths=PackedStringArray("camera")]
+use_hdr_2d = true
+render_target_update_mode = 4
+script = ExtResource("4_5vkcf")
+camera = NodePath("../FluidDepthCamera")
+
+[node name="FullScreenQuad" type="MeshInstance3D" parent="."]
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_7g8ml")

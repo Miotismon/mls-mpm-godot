@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjx7h6ik7oqlr"]
+
+[ext_resource type="Script" uid="uid://cblith6uhyl03" path="res://mls-mpm/3d/fluid_multithread/MLSMPM3DFluidMultithread.cs" id="1_qwvkx"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_iwdos"]
+radial_segments = 32
+rings = 16
+
+[sub_resource type="MultiMesh" id="MultiMesh_m7sik"]
+transform_format = 1
+mesh = SubResource("SphereMesh_iwdos")
+
+[node name="MLSMPM3DFluidMultithread" type="Node3D"]
+script = ExtResource("1_qwvkx")
+
+[node name="MultiMeshInstanceParticles" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_m7sik")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9398, 0.3417249, 0, -0.3417249, 0.9398, 37.274185, 40.026684, 84.54586)

@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cs3p3w7gs6wcr"]
+
+[ext_resource type="Shader" uid="uid://dfwswtcnqkwm1" path="res://rendering/shaders/multi_mesh/depth_map.gdshader" id="1_pxrbq"]
+
+[sub_resource type="Texture2DRD" id="Texture2DRD_pxrbq"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_pxrbq")
+shader_parameter/sphere_radius = 1.0
+shader_parameter/sphere_render_ratio = 0.999999977648
+shader_parameter/particle_pos_tex = SubResource("Texture2DRD_pxrbq")
+shader_parameter/particle_pos_tex_width = 0

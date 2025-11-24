@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://luxatjd5gnt6"
+path="res://.godot/imported/bilateral_blur_directional.glsl-9d3097a029297c2fb2a11105e7fec762.res"
+
+[deps]
+
+source_file="res://rendering/compositor_effects/shaders/bilateral_blur_directional.glsl"
+dest_files=["res://.godot/imported/bilateral_blur_directional.glsl-9d3097a029297c2fb2a11105e7fec762.res"]
+
+[params]
+

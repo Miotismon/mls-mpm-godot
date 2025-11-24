@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://c44etjtoaqmfi"]
+
+[ext_resource type="Script" uid="uid://dvmcwnmub70ti" path="res://mls-mpm/3d/fluid_multithread_gpu/MLSMPM3DFluidMultithreadGPU.cs" id="1_uodxf"]
+[ext_resource type="Material" uid="uid://cs3p3w7gs6wcr" path="res://rendering/shaders/multi_mesh/depth_map_mat.tres" id="2_8r6wg"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_brmbq"]
+material = ExtResource("2_8r6wg")
+size = Vector2(2, 2)
+
+[sub_resource type="MultiMesh" id="MultiMesh_bt545"]
+transform_format = 1
+mesh = SubResource("QuadMesh_brmbq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_brmbq"]
+albedo_color = Color(0.37, 0.37, 0.37, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_xo7js"]
+material = SubResource("StandardMaterial3D_brmbq")
+radius = 15.0
+height = 30.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kks7m"]
+radius = 15.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gv7eb"]
+size = Vector2(50, 50)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_tt1jd"]
+
+[node name="MLSMPM3DFluidMultithreadGPU" type="Node3D" node_paths=PackedStringArray("sphere_body")]
+script = ExtResource("1_uodxf")
+sphere_body = NodePath("Sphere")
+clear_grid_shader_file_path = "uid://gjh3y1xo17fd"
+p2g_1_shader_file_path = "uid://bh2tku7o8k2da"
+p2g_2_shader_file_path = "uid://ctp73mbo3ramf"
+update_grid_shader_file_path = "uid://bfonq00q61ys7"
+g2p_shader_file_path = "uid://co02td8i3mmid"
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
+layers = 2
+extra_cull_margin = 64.0
+multimesh = SubResource("MultiMesh_bt545")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.7430747, 0.41137043, -0.5278393, 0, 0.7887517, 0.61471206, 0.6692085, -0.45677698, 0.5861014, -8.2563305, 68.24535, 84.54586)
+
+[node name="Sphere" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.648403, 0, 31.707275)
+collision_layer = 0
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sphere"]
+mesh = SubResource("SphereMesh_xo7js")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sphere"]
+shape = SubResource("SphereShape3D_kks7m")
+
+[node name="SphereMovePlane" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SphereMovePlane"]
+visible = false
+mesh = SubResource("PlaneMesh_gv7eb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SphereMovePlane"]
+shape = SubResource("WorldBoundaryShape3D_tt1jd")
+
+[connection signal="input_event" from="SphereMovePlane" to="." method="On_sphere_move_plane_input_event"]

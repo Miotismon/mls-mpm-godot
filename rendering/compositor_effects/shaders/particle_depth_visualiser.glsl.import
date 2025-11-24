@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://o4xmahw63dcy"
+path="res://.godot/imported/particle_depth_visualiser.glsl-bba43212fe663d889c35749156b7beda.res"
+
+[deps]
+
+source_file="res://rendering/compositor_effects/shaders/particle_depth_visualiser.glsl"
+dest_files=["res://.godot/imported/particle_depth_visualiser.glsl-bba43212fe663d889c35749156b7beda.res"]
+
+[params]
+

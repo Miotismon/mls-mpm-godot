@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://gjh3y1xo17fd"
+path="res://.godot/imported/clear_grid.glsl-fec5d9a22f631e7a68f31771d06ebc2a.res"
+
+[deps]
+
+source_file="res://mls-mpm/3d/fluid_multithread_gpu/compute_shaders/clear_grid.glsl"
+dest_files=["res://.godot/imported/clear_grid.glsl-fec5d9a22f631e7a68f31771d06ebc2a.res"]
+
+[params]
+

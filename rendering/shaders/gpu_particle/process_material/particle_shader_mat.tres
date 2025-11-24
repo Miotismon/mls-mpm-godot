@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c050k2s40u2w3"]
+
+[ext_resource type="Shader" uid="uid://brp1kvta1gyhy" path="res://rendering/shaders/gpu_particle/process_material/particle_shader.gdshader" id="1_hauv4"]
+
+[sub_resource type="Texture2DRD" id="Texture2DRD_kks7m"]
+
+[resource]
+shader = ExtResource("1_hauv4")
+shader_parameter/particle_pos_tex = SubResource("Texture2DRD_kks7m")
+shader_parameter/particle_pos_tex_width = 0

@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://bh2tku7o8k2da"
+path="res://.godot/imported/p2g_1.glsl-473c5d38b9808aa379d5604339daff33.res"
+
+[deps]
+
+source_file="res://mls-mpm/3d/fluid_multithread_gpu/compute_shaders/p2g_1.glsl"
+dest_files=["res://.godot/imported/p2g_1.glsl-473c5d38b9808aa379d5604339daff33.res"]
+
+[params]
+

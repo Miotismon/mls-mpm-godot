@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://bfonq00q61ys7"
+path="res://.godot/imported/update_grid.glsl-da1462fb57540a52c59c9faf2c5891c2.res"
+
+[deps]
+
+source_file="res://mls-mpm/3d/fluid_multithread_gpu/compute_shaders/update_grid.glsl"
+dest_files=["res://.godot/imported/update_grid.glsl-da1462fb57540a52c59c9faf2c5891c2.res"]
+
+[params]
+

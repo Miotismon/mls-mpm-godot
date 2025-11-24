@@ -1,0 +1,15 @@
+<Project>
+    <PropertyGroup>
+        <Configurations>Debug;ExportDebug;ExportRelease;</Configurations>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' or '$(Configuration)' == 'ExportDebug' ">
+        <VersionSuffix>preview-0001</VersionSuffix>
+        <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+        <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition=" '$(Configuration)' == 'ExportRelease' ">
+        <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
+    </PropertyGroup>
+</Project>

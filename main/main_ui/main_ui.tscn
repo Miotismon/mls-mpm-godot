@@ -1,0 +1,193 @@
+[gd_scene load_steps=5 format=3 uid="uid://cakdj8l1cyhrm"]
+
+[sub_resource type="GDScript" id="GDScript_gjjvr"]
+resource_name = "MainUI"
+script/source = "extends Control
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"ui_cancel\"):
+		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+		get_tree().quit()
+	
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_ltebv"]
+resource_name = "OptionButtonVisualisation"
+script/source = "extends OptionButton
+
+
+
+
+func _on_item_selected(index: int) -> void:
+	match index:
+		0: # none
+			Global.current_simulator.TurnOffVisualisation()
+		1: # spheres
+			Global.current_simulator.TurnOnVisualisation()
+			Global.current_camera.set_ssfr_render_type(ScreenSpaceFluidRendering.RenderType.VELOCITY_SPHERES)
+		2: # ssfr
+			Global.current_simulator.TurnOnVisualisation()
+			Global.current_camera.set_ssfr_render_type(ScreenSpaceFluidRendering.RenderType.DEFAULT)
+"
+
+[sub_resource type="GDScript" id="GDScript_b343q"]
+resource_name = "SphereRenderRatioSlider"
+script/source = "extends HSlider
+
+@onready var label: Label = self.get_parent().get_child(0)
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	#update_render_ratio(self.value)
+	pass
+
+func update_render_ratio(new_ratio: float) -> void:
+	label.text = \"Sphere Render Ratio: %3.2f\" % new_ratio
+	var simulator_multi_mesh_instance: MultiMeshInstance3D = Global.current_simulator.multi_mesh_instance
+	var multi_mesh_instance_material: ShaderMaterial = simulator_multi_mesh_instance.multimesh.mesh.surface_get_material(0)
+	multi_mesh_instance_material.set_shader_parameter(\"sphere_render_ratio\", clampf(new_ratio, 0.0, 1.0));
+	
+	
+	
+
+
+func _on_value_changed(new_value: float) -> void:
+	update_render_ratio(new_value)
+"
+
+[sub_resource type="GDScript" id="GDScript_nn0jw"]
+resource_name = "SpinBoxGravity"
+script/source = "extends SpinBox
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	set_gravity()
+
+
+func set_gravity() -> void:
+	Global.current_simulator.gravity = self.value
+	Global.current_simulator.UpdatePushConstants()
+
+
+func _on_value_changed(_value: float) -> void:
+	set_gravity()
+"
+
+[node name="MainUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_behavior_recursive = 1
+mouse_filter = 1
+script = SubResource("GDScript_gjjvr")
+
+[node name="FoldableContainer" type="FoldableContainer" parent="."]
+layout_mode = 0
+offset_right = 244.0
+offset_bottom = 390.0
+title = "Settings"
+
+[node name="MarginContainer" type="MarginContainer" parent="FoldableContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FoldableContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FoldableContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="VBoxContainerVisualisation" type="VBoxContainer" parent="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainerVisualisation"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "VisualisationType"
+
+[node name="OptionButton" type="OptionButton" parent="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainerVisualisation"]
+layout_mode = 2
+size_flags_horizontal = 4
+selected = 2
+item_count = 3
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Spheres"
+popup/item_1/id = 1
+popup/item_2/text = "SSFR"
+popup/item_2/id = 2
+script = SubResource("GDScript_ltebv")
+
+[node name="VBoxContainerSphereRenderSettings" type="VBoxContainer" parent="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainerSphereRenderSettings"]
+layout_mode = 2
+text = "Sphere Render Ratio: 1.0"
+
+[node name="HSlider" type="HSlider" parent="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainerSphereRenderSettings"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = SubResource("GDScript_b343q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Gravity"
+
+[node name="SpinBox" type="SpinBox" parent="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+min_value = -1.0
+max_value = 1.0
+step = 0.1
+value = -0.5
+alignment = 1
+script = SubResource("GDScript_nn0jw")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -101.0
+offset_right = 290.0
+grow_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+text = "Left Click: Move sphere on plane
+Right Click Hold: Rotate camera
+WASD while Right Click: Move camera
+Esc: Exit "
+
+[connection signal="item_selected" from="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainerVisualisation/OptionButton" to="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainerVisualisation/OptionButton" method="_on_item_selected"]
+[connection signal="value_changed" from="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainerSphereRenderSettings/HSlider" to="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainerSphereRenderSettings/HSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainer/SpinBox" to="FoldableContainer/MarginContainer/ScrollContainer/VBoxContainer/VBoxContainer/SpinBox" method="_on_value_changed"]

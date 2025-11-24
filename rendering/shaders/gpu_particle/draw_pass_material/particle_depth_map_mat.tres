@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://drfrs3r3clv33"]
+
+[ext_resource type="Shader" uid="uid://p2c4x7uxi3md" path="res://rendering/shaders/gpu_particle/draw_pass_material/particle_depth_map.gdshader" id="1_frspd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_frspd")

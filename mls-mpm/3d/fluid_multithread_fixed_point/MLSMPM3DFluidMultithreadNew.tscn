@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://wypqfxtx10n7"]
+
+[ext_resource type="Script" uid="uid://q6n2sy5emxvf" path="res://mls-mpm/3d/fluid_multithread_fixed_point/MLSMPM3DFluidMultithreadNew.cs" id="1_wm0f4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_iwdos"]
+radial_segments = 32
+rings = 16
+
+[sub_resource type="MultiMesh" id="MultiMesh_m7sik"]
+transform_format = 1
+mesh = SubResource("SphereMesh_iwdos")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_brmbq"]
+albedo_color = Color(0.37, 0.37, 0.37, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_y28lm"]
+material = SubResource("StandardMaterial3D_brmbq")
+radius = 15.0
+height = 30.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sr25n"]
+radius = 15.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tcveu"]
+size = Vector2(50, 50)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sv1dq"]
+
+[node name="MLSMPM3DFluidMultithreadNew" type="Node3D" node_paths=PackedStringArray("sphere_body")]
+script = ExtResource("1_wm0f4")
+sphere_body = NodePath("Sphere")
+
+[node name="MultiMeshInstanceParticles" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_m7sik")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9398, 0.3417249, 0, -0.3417249, 0.9398, 24.254547, 40.026684, 67.89895)
+
+[node name="Sphere" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 31.707275)
+collision_layer = 0
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sphere"]
+mesh = SubResource("SphereMesh_y28lm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sphere"]
+shape = SubResource("SphereShape3D_sr25n")
+
+[node name="SphereMovePlane" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SphereMovePlane"]
+visible = false
+mesh = SubResource("PlaneMesh_tcveu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SphereMovePlane"]
+shape = SubResource("WorldBoundaryShape3D_sv1dq")
+
+[connection signal="input_event" from="SphereMovePlane" to="." method="On_sphere_move_plane_input_event"]

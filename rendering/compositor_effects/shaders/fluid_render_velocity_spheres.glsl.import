@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://pai18setoeyw"
+path="res://.godot/imported/fluid_render_velocity_spheres.glsl-11346c58d859676035cbafe3bf6b847e.res"
+
+[deps]
+
+source_file="res://rendering/compositor_effects/shaders/fluid_render_velocity_spheres.glsl"
+dest_files=["res://.godot/imported/fluid_render_velocity_spheres.glsl-11346c58d859676035cbafe3bf6b847e.res"]
+
+[params]
+

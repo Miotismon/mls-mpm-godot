@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://chjcqupu4und2"
+path="res://.godot/imported/fluid_render_fixed_depth.glsl-29c682242845e831b210d90eb3956c72.res"
+
+[deps]
+
+source_file="res://rendering/compositor_effects/shaders/fluid_render_fixed_depth.glsl"
+dest_files=["res://.godot/imported/fluid_render_fixed_depth.glsl-29c682242845e831b210d90eb3956c72.res"]
+
+[params]
+

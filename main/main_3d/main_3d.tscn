@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://cflomhes5b8st"]
+
+[ext_resource type="Texture2D" uid="uid://lhvs8bjsb32a" path="res://assets/panorama/Panorama_Sky_04-512x512.png" id="1_bwkhi"]
+[ext_resource type="PackedScene" uid="uid://8asyaabarqim" path="res://rendering/objects/main_camera.tscn" id="2_o2afs"]
+[ext_resource type="PackedScene" uid="uid://c44etjtoaqmfi" path="res://mls-mpm/3d/fluid_multithread_gpu/MLSMPM3DFluidMultithreadGPU.tscn" id="3_sr4ua"]
+[ext_resource type="PackedScene" uid="uid://3lds38ftm4fq" path="res://main/test_scenes/test1.tscn" id="5_cja72"]
+[ext_resource type="PackedScene" uid="uid://cakdj8l1cyhrm" path="res://main/main_ui/main_ui.tscn" id="6_ai0xo"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4dugh"]
+panorama = ExtResource("1_bwkhi")
+
+[sub_resource type="Sky" id="Sky_cbcaq"]
+sky_material = SubResource("PanoramaSkyMaterial_4dugh")
+
+[sub_resource type="Environment" id="Environment_dqt6a"]
+background_mode = 2
+sky = SubResource("Sky_cbcaq")
+sky_rotation = Vector3(0, -0.5235988, 0)
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.54463905, 0.46897858, -0.6952894, 0, 0.82903755, 0.55919284, 0.83867055, 0.30455825, -0.45152622, 0, 5.5019917, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 300.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dqt6a")
+
+[node name="MainCamera" parent="." instance=ExtResource("2_o2afs")]
+transform = Transform3D(0.86251366, 0.11898985, -0.4918451, 0, 0.971961, 0.23514211, 0.5060338, -0.20281328, 0.8383297, -13.28794, 50.40577, 108.06038)
+
+[node name="MLSMPM3DFluidMultithreadGPU" parent="." instance=ExtResource("3_sr4ua")]
+
+[node name="DebugCamera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.86251366, 0.11898985, -0.4918451, 0, 0.971961, 0.23514211, 0.5060338, -0.20281328, 0.8383297, -13.28794, 50.40577, 108.06038)
+visible = false
+
+[node name="Test1" parent="." instance=ExtResource("5_cja72")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 61.453045, 0, -21.574348)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource("6_ai0xo")]

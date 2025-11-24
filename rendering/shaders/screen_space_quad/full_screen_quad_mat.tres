@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://d04bgee823kb5"]
+
+[ext_resource type="Shader" uid="uid://4bl0rok0fxfp" path="res://rendering/shaders/screen_space_quad/full_screen_quad.gdshader" id="1_ed5i6"]
+
+[sub_resource type="Texture2DRD" id="Texture2DRD_ed5i6"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ed5i6")
+shader_parameter/particle_pos_tex = SubResource("Texture2DRD_ed5i6")
+shader_parameter/particle_pos_tex_width = 0

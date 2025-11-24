@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bntip6124bhkn"]
+
+[ext_resource type="Material" uid="uid://cd4g1l7vbh7el" path="res://rendering/shaders/screen_space_quad/bilateral_blur_y_mat.tres" id="1_iqua6"]
+[ext_resource type="Shader" uid="uid://cueh8vsi3txcq" path="res://rendering/shaders/screen_space_quad/bilateral_blur.gdshader" id="2_y7vbb"]
+
+[resource]
+render_priority = 0
+next_pass = ExtResource("1_iqua6")
+shader = ExtResource("2_y7vbb")
+shader_parameter/mode = 0
+shader_parameter/blur_dir = Vector2(1, 0)

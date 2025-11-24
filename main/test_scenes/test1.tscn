@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=3 uid="uid://3lds38ftm4fq"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3f30b"]
+size = Vector2(20, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_igurn"]
+stencil_mode = 3
+
+[sub_resource type="BoxMesh" id="BoxMesh_lkamp"]
+material = SubResource("StandardMaterial3D_igurn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lf14o"]
+albedo_color = Color(1, 0, 0, 1)
+roughness = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_igurn"]
+material = SubResource("StandardMaterial3D_lf14o")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3f30b"]
+albedo_color = Color(0, 1, 0, 1)
+roughness = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_lkamp"]
+material = SubResource("StandardMaterial3D_3f30b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkamp"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vgfyi"]
+material = SubResource("StandardMaterial3D_lkamp")
+
+[sub_resource type="Shader" id="Shader_lf14o"]
+code = "shader_type spatial;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	ALBEDO = NORMAL;
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the material.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_igurn"]
+render_priority = 0
+shader = SubResource("Shader_lf14o")
+
+[sub_resource type="BoxMesh" id="BoxMesh_3f30b"]
+material = SubResource("ShaderMaterial_igurn")
+
+[node name="Test1" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_3f30b")
+
+[node name="Cube1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0130663, 0.5, 0)
+mesh = SubResource("BoxMesh_lkamp")
+
+[node name="Cube2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.86378276, 0, -0.5038644, 0, 1, 0, 0.5038644, 0, 0.86378276, 5.130997, 0.5, -0.4022596)
+mesh = SubResource("BoxMesh_lkamp")
+
+[node name="Sphere1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.86378276, 0, -0.5038644, 0, 1, 0, 0.5038644, 0, 0.86378276, -2.4639115, 0.5, -0.4022596)
+mesh = SubResource("SphereMesh_igurn")
+
+[node name="Sphere2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.86378276, 0, -0.5038644, 0, 1, 0, 0.5038644, 0, 0.86378276, -3.146154, 0.50000006, -0.0013974905)
+mesh = SubResource("SphereMesh_lkamp")
+
+[node name="Sphere3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.86378276, 0, -0.5038644, 0, 1, 0, 0.5038644, 0, 0.86378276, -3.0389068, 1.176491, -0.49043912)
+mesh = SubResource("SphereMesh_vgfyi")
+
+[node name="Mesh with Normal shader" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5539138, 0.50000024, -3.8999534)
+mesh = SubResource("BoxMesh_3f30b")
