@@ -1,6 +1,6 @@
 # Fluidsim in Godot 4 with MLS-MPM and SSFR
 
-This is an implementation of Moving Least Squares Material Point Method for a fluid simulation.  
+This is an implementation of the Moving Least Squares Material Point Method for a fluid simulation.  
 Research Paper: https://yuanming.taichi.graphics/publication/2018-mlsmpm/mls-mpm-cpic.pdf
 
 I wanted it to look good so I added some parts of Screen-Space Fluid Rendering.  
